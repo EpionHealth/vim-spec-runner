@@ -36,6 +36,35 @@ describe 'Vim Spec Runner' do
       end
     end
 
+    context 'with the konacha gem installed' do
+      before do
+        create_gemfile_with('konacha')
+      end
+
+      %w(.coffee .js.coffee .js).each do |extension|
+        context "with a JS spec ending in #{extension}" do
+          it 'uses rake konacha:run' do
+            spec = "person_spec#{extension}"
+            vim.edit spec
+
+            vim.command 'RunCurrentSpecFile'
+
+            expect(command).to start_with 'rake konacha:run'
+          end
+
+          it 'correctly runs a single file' do
+            js_spec_directory = "nested_directory/spec/javascripts"
+            FileUtils.mkdir_p js_spec_directory
+            vim.edit "#{js_spec_directory}/person_spec#{extension}"
+
+            vim.command 'RunCurrentSpecFile'
+
+            expect(command).to end_with " SPEC=person_spec#{extension}"
+          end
+        end
+      end
+    end
+
     context 'with the teaspoon gem installed' do
       before do
         create_gemfile_with('teaspoon')

@@ -75,6 +75,8 @@ function! s:Runner()
     else
       return 'teaspoon'
     endif
+  elseif s:InJavascriptFile() && s:InGemfile('konacha')
+    return 'rake konacha:run'
   else
     return s:NOT_IN_SPEC_FILE
   endif
@@ -103,6 +105,8 @@ endfunction
 function! s:Path()
   if s:Runner() ==# 'rake teaspoon'
     return ' files=' . @%
+  elseif s:Runner() ==# 'rake konacha:run'
+    return ' SPEC=' . substitute(@%, '.*spec/javascripts/', '', '')
   else
     return @%
   end
