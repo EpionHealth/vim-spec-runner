@@ -95,7 +95,7 @@ function! s:Preloader()
     return 'zeus'
   elseif s:InRspecFile() && s:InGemfile('spring-commands-rspec')
     return 'spring'
-  elseif s:InJavascriptFile() && s:InGemfile('spring-commands-teaspoon')
+  elseif s:InJavascriptFile() && (s:InGemfile('spring-commands-teaspoon') || s:InGemfile('spring-commands-rspec'))
     return 'spring'
   else
     return ''
