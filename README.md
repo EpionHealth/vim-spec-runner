@@ -34,7 +34,7 @@ Installation
 With [vundle](https://github.com/gmarik/Vundle.vim):
 
 ```vim
-Bundle 'gabebw/vim-spec-runner'
+Bundle 'EpionHealth/vim-spec-runner'
 ```
 
 Usage
